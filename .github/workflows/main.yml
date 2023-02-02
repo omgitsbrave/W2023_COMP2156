@@ -43,4 +43,4 @@ jobs:
 
            # Install project dependencies
            - name: Install dependencies
-           run: npm install
+             run: npm install
