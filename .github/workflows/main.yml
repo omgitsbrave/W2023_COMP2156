@@ -25,22 +25,18 @@ jobs:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v3
 
-      # Runs a single command using the runners shell
-      - name: Run a one-line script
-        run: echo Hello, world!
-
-      # Runs a set of commands using the runners shell
-      - name: Run a multi-line script
-        run: |
-          echo Add other actions to build,
-          echo test, and deploy your project.
-
-      # Install nodeJs
+        # Install nodeJs
       - name: Use Node.js
         uses: actions/setup-node@v2
         with: 
           node-version: "18.x"
-
-      # Install project dependencies
-      - name: Install dependencies
-        run: npm install
+          cache: 'npm'
+      - run: npm install
+      - run: npm run build --if-present
+        
+      # Deploy to GitHub pages
+      - name: Deploy 🚀
+        uses: JamesIves/github-pages-deploy-action@v4
+        with:
+          branch: gh-pages # The branch the action should deploy to.
+          folder: build # The folder the action should deploy.
